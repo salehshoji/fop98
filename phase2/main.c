@@ -95,7 +95,7 @@ void logout(){
 }
 
 
-createchannel(){
+void createchannel(){
     char channelname[100];
     char Auth[100];
     sscanf(buffer, "%*s %s %s", channelname, Auth);
@@ -294,6 +294,24 @@ void connectoin(){
         printf("Server acccepted the client..\n");
         }
 
+void search(){
+    char serching[200];
+    sprintf(serching, "resurses\\%s.txt", buffer);
+    FILE *serch;
+    char sending[100];
+if (serch = fopen(serching, "r")){
+        fclose(serch);
+        memset(sending, 0, sizeof(sending));
+        sprintf(sending,"yse this name is available");
+        send(client_socket, sending, sizeof(sending), 0);
+    }
+    else{
+        memset(sending, 0, sizeof(sending));
+        sprintf(sending,"nooooooooo this name isn't available");
+        send(client_socket, sending, sizeof(sending), 0);
+    }
+}
+
 int main()
 {
     WORD wVersionRequested;
@@ -362,6 +380,9 @@ int main()
         }
         if(!strcmp(order, "leave")){
             leave();
+            continue;
+        }if(!strcmp(order, "search")){
+            search();
             continue;
         }
         if(!strcmp(order, "")){

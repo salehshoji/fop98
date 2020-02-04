@@ -171,7 +171,7 @@ void registerkardan()
     {
         printf("Frome server :Oops %s\n",cJSON_GetObjectItem(recived,"content")-> valuestring);
     }
-    /*else
+    else
     {
         sprintf(sending, "login %s, %s\n", username, password);
         connectsocket();
@@ -182,7 +182,7 @@ void registerkardan()
         cJSON * recived = cJSON_Parse(sending);
         strcpy(AuthToken, cJSON_GetObjectItem(recived,"content")-> valuestring);
         flag = 1;
-    }*/
+    }
     //closesocket(client_socket);
     return;
 }
@@ -283,6 +283,20 @@ system(c);
 return;
 }
 
+void search(){
+char name[100];
+printf("Enter which name you want to search \n");
+scanf("%s",name);
+char sending[100];
+sprintf(sending, "search %s,", name);
+connectsocket();
+send(client_socket, sending, sizeof(sending), 0);
+memset(sending, 0,sizeof(sending));
+recv(client_socket, sending, sizeof(sending), 0);
+printf("%s\n", sending);
+return;
+}
+
 int main()
 {
     printf("HELLO THIS IS YOUR CHAT APPLICATION!!!!\n");
@@ -294,7 +308,7 @@ int main()
         while(flag == 0)
         {
             printf("First Menu : \n");
-            printf("1: Login \n2: Register\n3: exit\n4: change color\n");
+            printf("1: Login \n2: Register\n3: exit\n4: change color\n5: search member!\n");
             scanf("%d",&insert);
 
             switch (insert)
@@ -310,6 +324,9 @@ int main()
                 return 0;
             case 4:
                 changecolor();
+                break;
+            case 5:
+                search();
                 break;
                 }
         }
